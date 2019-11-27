@@ -11,37 +11,34 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dario.demo.dao.ProductRepository;
 import com.dario.demo.model.Product;
+import com.dario.demo.service.ProductServiceI;
 
 @RestController("/")
 public class ProductController {
 	
 	@Autowired
-	private ProductRepository productRepository;
+	private ProductServiceI productService;
 	
 	@PostMapping("/addProduct")
 	public String addProduct(@RequestBody Product product) {
-		productRepository.save(product);
 		
-		return "Added product with id: " + product.getId();
+		return productService.addProduct(product);
 	}
 	
 	@GetMapping("/getProducts")
 	public List<Product> getProducts(){
-		
-		return productRepository.findAll();
+		return productService.getProducts();
 	}
 
 	@GetMapping("/getProducts/{id}")
 	public Optional<Product> getProductByID(@PathVariable Integer id){
-		
-		return productRepository.findById(id);
+		return productService.getProductByID(id);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public String deleteProductByID(@PathVariable Integer id){
-		productRepository.deleteById(id);
-		return "Added product with id: " + id;
+		
+		return productService.deleteProductByID(id);
 	}
 }
