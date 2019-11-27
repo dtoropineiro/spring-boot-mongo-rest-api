@@ -2,6 +2,7 @@ package com.dario.demo.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,18 +18,40 @@ public class ProductService implements ProductServiceI{
 	@Autowired
 	private ProductRepository productRepository;
 	
+	@Override
 	public String addProduct(Product product) {
 		productRepository.save(product);
 		return "Added product with id: " + product.getId();
 	}
+	@Override
 	public List<Product> getProducts(){
 		return productRepository.findAll();
 	}
+	@Override
 	public Optional<Product> getProductByID(Integer id){
 		return productRepository.findById(id);
 	}
+	@Override
 	public String deleteProductByID(Integer id){
 		productRepository.deleteById(id);
 		return "Deleted product with id: " + id;
+	}
+	@Override
+	public List<Product> findGreaterThanPrice(Integer price) {
+		List<Product> productList = productRepository.findAll();
+		List<Product> productListFiltred = 
+				productList.stream()
+				.filter(p -> p.getPrice() > price)
+				.collect(Collectors.toList());
+		return productListFiltred;
+	}
+	@Override
+	public List<Product> findByNameLike(String name) {
+		List<Product> productList = productRepository.findAll();
+		List<Product> productListFiltred = 
+				productList.stream()
+				.filter(p -> p.getName().contains(name))
+				.collect(Collectors.toList());
+		return productListFiltred;
 	}
 }

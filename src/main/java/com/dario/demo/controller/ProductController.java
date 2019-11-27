@@ -30,6 +30,16 @@ public class ProductController {
 	public List<Product> getProducts(){
 		return productService.getProducts();
 	}
+	
+	@GetMapping("/filter/{price}")
+	public List<Product> filterProducts(@PathVariable Integer price){
+		return productService.findGreaterThanPrice(price);
+	}
+	
+	@GetMapping("/filter/name/{name}")
+	public List<Product> filterProducts(@PathVariable String name){
+		return productService.findByNameLike(name);
+	}
 
 	@GetMapping("/getProducts/{id}")
 	public Optional<Product> getProductByID(@PathVariable Integer id){

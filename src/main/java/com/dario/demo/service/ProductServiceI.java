@@ -7,8 +7,10 @@ import com.dario.demo.model.Product;
 
 public interface ProductServiceI {
 
-	public String addProduct(Product product);
-	public List<Product> getProducts();
-	public Optional<Product> getProductByID(Integer id);
-	public String deleteProductByID(Integer id);
+	String addProduct(Product product);
+	List<Product> getProducts();
+	Optional<Product> getProductByID(Integer id);
+	List<Product> findGreaterThanPrice(Integer price);
+	List<Product> findByNameLike(String name);
+	String deleteProductByID(Integer id);
 }
