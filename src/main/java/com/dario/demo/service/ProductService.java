@@ -6,20 +6,24 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import com.dario.demo.dao.ProductRepository;
 import com.dario.demo.model.Product;
+import com.dario.sequence.dao.SequenceDaoI;
 
 @Service
 public class ProductService implements ProductServiceI{
 
+	private static final String PRODUCT_SEQ_KEY = "Product";
+	
+	@Autowired
+	private SequenceDaoI sequenceDao;
 	@Autowired
 	private ProductRepository productRepository;
 	
 	@Override
 	public String addProduct(Product product) {
+		product.setId(sequenceDao.getNextSequenceId(PRODUCT_SEQ_KEY));
 		productRepository.save(product);
 		return "Added product with id: " + product.getId();
 	}

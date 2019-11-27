@@ -8,15 +8,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Product {
 
 	@Id
-	private Integer id;
+	private Long id;
 	private String name;
 	private Integer stock;
 	private Integer price;
 	
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getName() {
