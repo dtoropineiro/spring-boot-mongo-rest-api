@@ -36,6 +36,11 @@ public class ProductController {
 		return productService.findGreaterThanPrice(price);
 	}
 	
+	@GetMapping("/filter/min/{min}/max/{max}")
+	public List<Product> getBetweenPrices(@PathVariable Integer min, @PathVariable Integer max){
+		return productService.findBetweenPrices(min, max);
+	}
+	
 	@GetMapping("/filter/name/{name}")
 	public List<Product> filterProducts(@PathVariable String name){
 		return productService.findByNameLike(name);

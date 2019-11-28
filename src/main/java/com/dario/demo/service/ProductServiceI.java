@@ -13,4 +13,5 @@ public interface ProductServiceI {
 	List<Product> findGreaterThanPrice(Integer price);
 	List<Product> findByNameLike(String name);
 	String deleteProductByID(Integer id);
+	List<Product> findBetweenPrices(Integer min, Integer max);
 }

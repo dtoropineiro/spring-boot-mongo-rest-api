@@ -58,4 +58,13 @@ public class ProductService implements ProductServiceI{
 				.collect(Collectors.toList());
 		return productListFiltred;
 	}
+	@Override
+	public List<Product> findBetweenPrices(Integer min, Integer max) {
+		List<Product> productList = productRepository.findAll();
+		List<Product> productListFiltred = 
+				productList.stream()
+				.filter(p -> (p.getPrice() < max) && (p.getPrice() > min))
+				.collect(Collectors.toList());
+		return productListFiltred;
+	}
 }
